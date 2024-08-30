@@ -185,7 +185,7 @@ export function PlaceholdersAndVanishInput({
         onKeyDown={handleKeyDown}
         ref={inputRef}
         value={value}
-        type='text'
+        type='url'
         className={cn(
           'w-[900px] relative z-50 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-4 pr-20',
           animating && 'text-transparent dark:text-transparent'

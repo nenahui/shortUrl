@@ -15,7 +15,7 @@ shortRouter.get('/:shotId', async (req, res, next) => {
 				error: 'Short not found'
 			});
 		}
-		
+
 		return res.status(301).redirect(short.originalUrl);
 	} catch (err) {
 		next(err);

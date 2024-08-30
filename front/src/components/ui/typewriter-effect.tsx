@@ -96,7 +96,7 @@ export const TypewriterEffect = ({
       />
       {completed && (
         <motion.div
-          className={'h-[0.07rem] rounded-xl bg-gray-100 relative'}
+          className={'h-[0.095rem] rounded-xl bg-gray-100 relative'}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1, ease: 'easeInOut' }}
@@ -108,7 +108,8 @@ export const TypewriterEffect = ({
                 <TooltipTrigger asChild>
                   <button
                     data-clipboard-text={words}
-                    className='p-2 btn absolute bottom-0 -right-10 rounded-md border border-black bg-white text-black text-sm transition duration-200'
+                    style={{ transform: 'translateY(-85%)' }}
+                    className='p-2 btn absolute top-1/2 -right-10 rounded-md border border-black bg-white text-black text-sm transition duration-200'
                   >
                     <motion.div
                       key={copied ? 'check' : 'clipboard'}
@@ -129,7 +130,7 @@ export const TypewriterEffect = ({
           </motion.div>
         </motion.div>
       )}
-      {!completed && <div className={'bg-transparent w-96 h-[0.07rem]'} />}
+      {!completed && <div className={'bg-transparent w-96 h-[0.095rem]'} />}
     </div>
   );
 };

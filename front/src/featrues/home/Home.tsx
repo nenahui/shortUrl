@@ -1,10 +1,16 @@
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { PlaceholdersAndVanishInput } from '@/components/ui/placeholders-and-vanish-input';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { TypewriterEffect } from '@/components/ui/typewriter-effect';
+import { selectShortenedUrl } from '@/featrues/home/homeSlice';
+import { shortUrl } from '@/featrues/home/homeThunks';
+import type { IShortMutation } from '@/types';
 import React, { useState } from 'react';
 
 export const Home: React.FC = () => {
-  const [url, setUrl] = useState('');
+  const dispatch = useAppDispatch();
+  const shortenedUrl = useAppSelector(selectShortenedUrl);
+  const [url, setUrl] = useState<IShortMutation>({ originalUrl: '' });
   const placeholders = [
     'Shorten your link in seconds.',
     'https://youtube.com',
@@ -14,11 +20,13 @@ export const Home: React.FC = () => {
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl(e.target.value);
+    setUrl({ originalUrl: e.target.value });
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(url);
+    if (url.originalUrl.length > 0) {
+      dispatch(shortUrl(url));
+    }
   };
 
   return (
@@ -28,7 +36,18 @@ export const Home: React.FC = () => {
 
       <TextGenerateEffect words={'Your link look like this:'} />
 
-      <TypewriterEffect onCompleteBorder words={'https://localhost:8000/fkwFwFF'} cursorClassName={'bg-transparent'} />
+      {shortenedUrl !== null ? (
+        <TypewriterEffect
+          onCompleteBorder
+          words={`http://localhost:8000/short/${shortenedUrl}`}
+          cursorClassName={'bg-transparent'}
+        />
+      ) : (
+        <div>
+          <p className={'text-muted-foreground text-black'}>Enter the link and get a shortened link</p>
+          <div className={'h-[0.3rem] w-full rounded-xl bg-gray-100 bg-transparent'} />
+        </div>
+      )}
     </div>
   );
 };
