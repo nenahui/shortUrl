@@ -1,9 +1,10 @@
 import { PlaceholdersAndVanishInput } from '@/components/ui/placeholders-and-vanish-input';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { TypewriterEffect } from '@/components/ui/typewriter-effect';
-import React from 'react';
+import React, { useState } from 'react';
 
 export const Home: React.FC = () => {
+  const [url, setUrl] = useState('');
   const placeholders = [
     'Shorten your link in seconds.',
     'https://youtube.com',
@@ -13,11 +14,11 @@ export const Home: React.FC = () => {
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    setUrl(e.target.value);
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('submitted');
+    console.log(url);
   };
 
   return (
